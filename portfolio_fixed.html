@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ankit Kumar – Portfolio</title>
+  <meta name="description" content="Portfolio of Ankit Kumar – B.Tech CS-AI, projects in Web, ML & Data Science" />
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    :root{
+      --bg:#03040a;
+      --muted:#9aa9c7;
+      --blue:#2bb0ff;
+      --accent:#1f65ff;
+      --card:#0b0f1a;
+      --glass: rgba(255,255,255,0.03);
+      --glass-2: rgba(255,255,255,0.02);
+      --radius:14px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#02030a);color:#eaf2ff;overflow-x:hidden}
+    a{color:var(--blue);text-decoration:none}
+
+    /* Full-page 3D background */
+    #three-canvas{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100vw;
+      height:100vh;
+      z-index:1;
+      pointer-events:none;
+    }
+
+    .container{max-width:1100px;margin:0 auto;padding:36px 24px;position:relative;z-index:2}
+    header{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:16px}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--blue));display:flex;align-items:center;justify-content:center;font-weight:700;color:#02102a;box-shadow:0 6px 18px rgba(43,160,255,0.12)}
+    h1{font-size:28px;margin:0}
+    p.lead{color:var(--muted);margin:6px 0 0}
+
+    nav a{margin-left:18px;font-weight:600;color:rgba(255,255,255,0.85)}
+
+    .hero{display:grid;grid-template-columns:1fr;gap:40px;align-items:center;padding-top:18px}
+    .intro{padding:24px;background:linear-gradient(180deg,var(--glass),transparent);border-radius:16px;backdrop-filter:blur(8px)}
+    .intro h2{margin:0 0 8px;font-size:34px}
+    .role{color:var(--blue);font-weight:700}
+    .cta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+    .btn{background:linear-gradient(90deg,var(--accent),var(--blue));padding:12px 18px;border-radius:12px;color:#02102a;font-weight:700;border:none;cursor:pointer}
+    .btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--blue);}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:20px}
+    .card{background:var(--glass);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);transition:transform 0.25s ease;backdrop-filter:blur(8px)}
+    .card:hover{transform:translateY(-6px)}
+    .project-title{font-weight:700;margin:6px 0}
+    .tags{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{font-size:12px;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--muted)}
+
+    .stack-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+    .stack{width:52px;height:52px;border-radius:10px;background:rgba(255,255,255,0.02);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.02)}
+    .stack img{width:36px;height:36px;object-fit:contain}
+
+    .hero-image{width:100%;height:180px;border-radius:12px;object-fit:cover;margin-top:12px}
+
+    footer{margin-top:42px;padding:22px 0;color:var(--muted);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+
+    @media (max-width:980px){.hero{grid-template-columns:1fr;}}
+    @media (max-width:520px){
+      .container{padding:24px 16px}
+      .logo{width:48px;height:48px;border-radius:10px}
+      .intro h2{font-size:22px}
+      nav a{margin-left:12px;font-size:14px}
+    }
+  </style>
+</head>
+<body>
+  <!-- Full-page 3D animated background -->
+  <canvas id="three-canvas"></canvas>
+
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">AK</div>
+        <div>
+          <h1>Ankit Kumar</h1>
+          <p class="lead">B.Tech (CS-AI) • PSIT • GATE 2027 aspirant</p>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#coding">Competitive Coding</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section id="about" style="margin-top:18px">
+      <div class="card" style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px">
+          <h2 style="margin:0 0 6px">About me</h2>
+          <p style="color:var(--muted);margin:0">Hi – I'm <strong>Ankit Kumar</strong>, a B.Tech student in Computer Science (AI) at PSIT. I build full-stack web apps, ML pipelines, and practical tools that solve domain problems. I focus on clean code, measurable impact, and production-ready deployments.</p>
+
+          <ul style="margin-top:8px;color:var(--muted)">
+            <li>Education: B.Tech – CS-AI (PSIT)</li>
+            <li>Skills: JavaScript (React), Node.js, Python, C++, ML/NLP, SQL, Git, Docker</li>
+            <li>Hiring-ready: unit testing, API design, cloud deployment, collaboration with Git</li>
+          </ul>
+
+          <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+            <a class="btn outline" href="https://github.com/Ankitkumar06102005" target="_blank">
+              <svg style="width:16px;height:16px;vertical-align:middle;margin-right:8px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+            <a class="btn outline" href="https://www.linkedin.com/in/ankit-kumar-84550725b/" target="_blank">
+              <svg style="width:16px;height:16px;vertical-align:middle;margin-right:8px;fill:currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <div style="min-width:260px">
+          <img class="hero-image" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=900&auto=format&fit=crop" alt="coding workspace">
+        </div>
+      </div>
+    </section>
+
+    <section class="hero" style="margin-top:18px">
+      <div class="intro">
+        <h2>Designing elegant systems & data pipelines – <span class="role">Web • ML • Product</span></h2>
+        <p style="color:var(--muted);margin-top:10px">I build production-ready web apps and machine learning solutions. I enjoy solving real problems – from event platforms to NLP tooling and telemetry-based detection systems.</p>
+
+        <div class="cta">
+          <a class="btn" href="#contact">Hire / Contact</a>
+          <a class="btn outline" href="#projects">See projects</a>
+          <a class="btn outline" href="#certs">Certifications</a>
+        </div>
+
+        <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
+          <div class="card" style="display:flex;gap:12px;align-items:center">
+            <div style="width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--accent));display:flex;align-items:center;justify-content:center;color:#02102a;font-weight:700">DS</div>
+            <div>
+              <div style="font-weight:700">Data Science</div>
+              <div style="color:var(--muted);font-size:13px">Analysis, modelling, deployment – data-first thinking</div>
+            </div>
+          </div>
+
+          <div class="card" style="display:flex;gap:12px;align-items:center">
+            <div style="width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--blue));display:flex;align-items:center;justify-content:center;color:#02102a;font-weight:700">WD</div>
+            <div>
+              <div style="font-weight:700">Web Development</div>
+              <div style="color:var(--muted);font-size:13px">Frontend, backend, deployment – production mindset</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" style="margin-top:22px">
+      <h3>Selected Projects</h3>
+      <div class="grid">
+        <article class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div class="project-title">EventLink – College events platform</div>
+              <div style="color:var(--muted);font-size:13px">A web app for creating and sharing college event invites and managing RSVPs. Built with React, Node.js & MongoDB. Features: event creation, RSVP tracking, role-based access.</div>
+            </div>
+            <div style="text-align:right;color:var(--muted);font-size:12px">2025</div>
+          </div>
+          <div style="margin-top:12px" class="tags">
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">MongoDB</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="project-title">AutoTheft – Vehicle theft detection & alerts</div>
+          <div style="color:var(--muted);font-size:13px">Real-time detection pipeline using telemetry + GPS anomaly detection. Prototype raises alerts, logs incidents, and provides a web dashboard for owners and admins.</div>
+          <div style="margin-top:12px" class="tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Anomaly Detection</span></div>
+        </article>
+
+        <article class="card">
+          <div class="project-title">LegalLens – Document summarizer for legal text</div>
+          <div style="color:var(--muted);font-size:13px">Tool to summarize long legal documents and highlight clauses using NLP techniques. Designed for quick review and workflow integration.</div>
+          <div style="margin-top:12px" class="tags"><span class="tag">NLP</span><span class="tag">Prompt Engineering</span><span class="tag">Deployment</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="coding" style="margin-top:26px">
+      <h3>Competitive Coding & Contributions</h3>
+      <div class="grid">
+        <div class="card">
+          <div style="display:flex;align-items:center;gap:12px;justify-content:space-between">
+            <div>
+              <div style="font-weight:700">LeetCode – 150+ problem submissions</div>
+              <div style="color:var(--muted);font-size:13px;margin-top:6px">Practice focused on DSA, problem-solving patterns, and interview-style questions.</div>
+              <div style="margin-top:8px"><a href="https://leetcode.com/u/1V3cbAf8Gy/" target="_blank">View LeetCode profile →</a></div>
+            </div>
+            <div style="text-align:right;color:var(--muted);font-size:12px">Ongoing</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;align-items:center;gap:12px;justify-content:space-between">
+            <div>
+              <div style="font-weight:700">HackerRank – 3 Gold medals</div>
+              <div style="color:var(--muted);font-size:13px;margin-top:6px">Gold in C++, Python, and Problem Solving assessments.</div>
+              <div style="margin-top:8px"><a href="https://www.hackerrank.com/profile/Ankitkumar0610" target="_blank">View HackerRank profile →</a></div>
+            </div>
+            <div style="text-align:right;color:var(--muted);font-size:12px">Achievements</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="certs" style="margin-top:26px">
+      <h3>Certifications & Courses</h3>
+      <div class="grid" style="margin-top:12px">
+        <div class="card">
+          <div style="font-weight:700">Oracle Cloud Certification</div>
+          <div style="color:var(--muted);font-size:13px;margin-top:6px"><a href="https://catalog-education.oracle.com/ords/certview/sharebadge?id=AA8B51F5DA0F520D9EF42752B417C32687A221831004A9B0CD0985D693D5E345" target="_blank">View shared Oracle badge →</a></div>
+        </div>
+
+        <div class="card">
+          <div style="font-weight:700">Columbia University – Prompt Engineering</div>
+          <div style="color:var(--muted);font-size:13px;margin-top:6px">Prompt engineering course – practical skills for building reliable LLM applications.</div>
+        </div>
+
+        <div class="card">
+          <div style="font-weight:700">HackerRank – Software Engineer Certificate</div>
+          <div style="color:var(--muted);font-size:13px;margin-top:6px">Assessment and certification demonstrating software engineering proficiency. <div style="margin-top:6px"><a href="https://www.linkedin.com/in/ankit-kumar-84550725b/details/certifications/" target="_blank">View LinkedIn certifications →</a></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:28px">
+      <h3>Contact – Web Development & Software Roles</h3>
+      <div class="card" style="display:flex;gap:18px;align-items:center;justify-content:space-between;margin-top:12px;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px">
+          <div style="font-weight:700">Available for internships, web dev & software engineering roles</div>
+          <div style="color:var(--muted);margin-top:6px">Email: <a href="mailto:2k24.csai1a.2411732@gmail.com">2k24.csai1a.2411732@gmail.com</a></div>
+          <div style="color:var(--muted);margin-top:4px">Location: India</div>
+
+          <div style="margin-top:12px">
+            <strong style="color:var(--muted)">Tech stack</strong>
+            <div class="stack-row">
+              <div class="stack"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"></div>
+              <div class="stack"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js"></div>
+              <div class="stack"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"></div>
+              <div class="stack"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++"></div>
+              <div class="stack"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker"></div>
+              <div class="stack"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git"></div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+            <a class="btn outline" href="https://github.com/Ankitkumar06102005" target="_blank">GitHub</a>
+            <a class="btn outline" href="https://www.linkedin.com/in/ankit-kumar-84550725b/" target="_blank">LinkedIn</a>
+            <a class="btn outline" href="#certs">Certifications</a>
+          </div>
+        </div>
+
+        <form id="contact-form" style="min-width:320px;display:flex;flex-direction:column;gap:8px">
+          <input name="name" placeholder="Your name" style="padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:rgba(0,0,0,0.3);color:inherit">
+          <input name="email" type="email" placeholder="Your email" style="padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:rgba(0,0,0,0.3);color:inherit">
+          <textarea name="msg" placeholder="Message (brief)" rows="3" style="padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:rgba(0,0,0,0.3);color:inherit"></textarea>
+          <button type="submit" class="btn" style="align-self:flex-end">Send</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> Ankit Kumar</div>
+      <div style="display:flex;gap:12px">
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    document.getElementById('contact-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      alert('Thanks! This demo page does not send messages. Replace with your backend or emailjs.');
+    });
+
+    // THREE.JS FULL-PAGE BACKGROUND ANIMATION
+    (function(){
+      const canvas = document.getElementById('three-canvas');
+      const renderer = new THREE.WebGLRenderer({canvas, antialias: true, alpha: true});
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 4000);
+      camera.position.z = 400;
+
+      const particleCount = 2000;
+      const geometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(particleCount * 3);
+
+      for (let i = 0; i < particleCount * 3; i += 3) {
+        positions[i] = (Math.random() - 0.5) * 2000;
+        positions[i + 1] = (Math.random() - 0.5) * 2000;
+        positions[i + 2] = (Math.random() - 0.5) * 2000;
+      }
+
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+      const material = new THREE.PointsMaterial({
+        color: 0x1f65ff,
+        size: 2.2,
+        transparent: true,
+        opacity: 0.55,
+        blending: THREE.AdditiveBlending
+      });
+
+      const particles = new THREE.Points(geometry, material);
+      scene.add(particles);
+
+      let mouseX = 0, mouseY = 0;
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX - window.innerWidth / 2;
+        mouseY = e.clientY - window.innerHeight / 2;
+      });
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        particles.rotation.x += 0.00025;
+        particles.rotation.y += 0.0005;
+
+        camera.position.x += (mouseX - camera.position.x) * 0.0015;
+        camera.position.y += (-mouseY - camera.position.y) * 0.0015;
+        camera.lookAt(scene.position);
+
+        renderer.render(scene, camera);
+      }
+
+      animate();
+    })();
+  </script>
+</body>
+</html>
